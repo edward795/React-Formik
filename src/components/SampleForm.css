@@ -2,7 +2,9 @@
   margin: 20px;
 }
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+input[type="number"],
+textarea {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -22,4 +24,14 @@ label {
 
 .error {
   color: red;
+  margin: left;
+}
+
+.multiField {
+  display: flex;
+  justify-content: space-between;
+}
+
+input.errorInput {
+  border: 2px solid red;
 }

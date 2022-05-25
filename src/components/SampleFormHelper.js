@@ -4,6 +4,14 @@ const initialValues = {
   name: "Raju",
   email: "Raju@apple.com",
   channel: "Ravi",
+  comments: "Very good!",
+  address: "4th street,Noida",
+  social: {
+    facebook: "",
+    twitter: "",
+  },
+  phoneNumbers: [0, 0],
+  phNumbers: [""],
 };
 
 const onSubmit = (values) => {
@@ -31,5 +39,20 @@ const validationSchema = Yup.object({
   name: Yup.string().required("Required!"),
   email: Yup.string().email("Invalid Email Format!").required("Required!"),
   channel: Yup.string().required("Required!"),
+  address: Yup.string().required("!Required"),
 });
-export { initialValues, validate, onSubmit, validationSchema };
+
+const validateComments = (value) => {
+  let error = {};
+  if (!value) {
+    error = "Required!";
+  }
+  return error;
+};
+export {
+  initialValues,
+  validate,
+  onSubmit,
+  validationSchema,
+  validateComments,
+};
