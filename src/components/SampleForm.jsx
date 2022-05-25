@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SampleForm.css";
 import {
   Formik,
@@ -12,22 +12,29 @@ import {
   validate,
   onSubmit,
   initialValues,
+  savedValues,
   validationSchema,
   validateComments,
 } from "./SampleFormHelper";
 import { ErrorMsg } from "./ErrorMsg";
 
 export const SampleForm = () => {
+  const [formValues, setFormValues] = useState(null);
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={formValues || initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      //validateOnMount
       //   validateOnChange={false}
       //   validateOnBlur={false}
+      enableReinitialize
     >
-      <div className="container">
-        <div className="form-block">
+      {/* <div className="container">
+        <div className="form-block"> */}
+      {(formik) => {
+        console.log("formik props:", formik);
+        return (
           <Form>
             <div className="form-control">
               <label htmlFor="name">Name</label>
@@ -139,11 +146,40 @@ export const SampleForm = () => {
                 }}
               </FieldArray>
             </div>
-
-            <button type="submit">Submit</button>
+            {/*!(formik.dirty && formik.isValid)*/}
+            <button
+              type="submit"
+              disabled={!formik.isValid || formik.isSubmitting}
+            >
+              Submit
+            </button>
+            <button type="button" onClick={() => setFormValues(savedValues)}>
+              reload saved data
+            </button>
+            <button type="reset">reset</button>
+            {/* <button type="button" onClick={() => formik.validateForm()}>
+              validate
+            </button>
+            <button
+              type="button"
+              onClick={() => formik.validateField("comments")}
+            >
+              validate comments
+            </button>
+            <button type="button" onClick={() => formik.setTouched()}>
+              set touched
+            </button>
+            <button
+              type="button"
+              onClick={() => formik.setFieldTouched("comments")}
+            >
+              set field touched
+            </button> */}
           </Form>
-        </div>
-      </div>
+        );
+      }}
+      {/* </div>
+      </div> */}
     </Formik>
   );
 };

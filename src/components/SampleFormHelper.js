@@ -14,8 +14,25 @@ const initialValues = {
   phNumbers: [""],
 };
 
-const onSubmit = (values) => {
+const savedValues = {
+  name: "Ram",
+  email: "Ram@apple.com",
+  channel: "Ram's Youtube channel",
+  comments: "Very bad!",
+  address: "4th street,Mumbai",
+  social: {
+    facebook: "",
+    twitter: "",
+  },
+  phoneNumbers: [0, 0],
+  phNumbers: [""],
+};
+const onSubmit = (values, onSubmitProps) => {
+  console.log("onSubmit Props:", onSubmitProps);
   console.log("formdata:", values);
+  //setting the submit button as enabled after api call
+  onSubmitProps.setSubmitting(false);
+  onSubmitProps.resetForm();
 };
 
 const validate = (values) => {
@@ -51,6 +68,7 @@ const validateComments = (value) => {
 };
 export {
   initialValues,
+  savedValues,
   validate,
   onSubmit,
   validationSchema,
